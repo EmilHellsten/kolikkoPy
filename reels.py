@@ -18,6 +18,6 @@ class RighttReel:
 
 class MultiplierReel:
    #Should contain following symbols:
-   #[1, crown, crown, neither, crown, 1, 1, crown, 1, 1, crown, crown, crown, 1, 1, crown, 1, crown, half, crown, 1, crown, 1, 1]
+   #[tails, heads, heads, neither, heads, tails, tails, heads, tails, tails, heads, heads, heads, tails, tails, heads, tails, heads, half, heads, tails, heads, tails, tails]
   def __init__(self):
     pass
