@@ -1,3 +1,4 @@
+#In this file, symbols are ordered in descending order of 'value'
 class Symbol:
   def __init__(self):
       pass

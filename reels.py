@@ -1,23 +1,36 @@
+from symbols import (Symbol, Blue_ray, Orange_ray, Star, Melon, Plum, Grape, Pear, Orange, Cherry, Strawberry, Heads, Tails, Neither, Half)#
+
 class LeftReel:
   #Should contain following symbols:
   #[blue_ray, pear, melon, orange_ray, pear, melon, plum, melon, pear, melon, orange_ray, blue_ray, plum, melon, orange_ray, plum, pear, cherry, orange, orange_ray, plum, blue_ray, grapes, blue_ray]
   def __init__(self):
-    pass
+    self.symbols = [
+      Blue_ray(), Pear(), Melon(), Orange_ray(), Pear(), Melon(), Plum(), Melon(), Pear(), Melon(), Orange_ray(), Blue_ray(), Plum(), Melon(), Orange_ray(), Plum(), Pear(), Cherry(), Orange(), Orange_ray(), Plum(), Blue_ray(), Grape(), Blue_ray()
+    ]
 
 class MidReel:
    #Should contain following symbols:
-   #[orange_ray, melon, cherry, grapes, pear, cherry, plum, melon, plum, blue_ray, grapes, melon, melon, pear, grapes, orange, orange_ray, plum, melon, plum, cherry, grapes, blue_ray, orange]
+   #[Orange_ray(), Melon(), Cherry(), Grapes(), Pear(), Cherry(), Plum(), Melon(), Plum(), Blue_ray(), Grape(), Melon(), Melon(), Pear(), Grape(), Orange(), Orange_ray(), Plum(), Melon(), Plum(), Cherry(), Grape(), Blue_ray(), Orange()]
   def __init__(self):
-    pass
+    self.symbols = [
+      Orange_ray(), Melon(), Cherry(), Grape(), Pear(), Cherry(), Plum(), Melon(), Plum(), Blue_ray(), Grape(), Melon(), Melon(), Pear(), Grape(), Orange(), Orange_ray(), Plum(), Melon(), Plum(), Cherry(), Grape(), Blue_ray(), Orange()
+    ]
+
 
 class RighttReel:
    #Should contain following symbols:
-   #[plum, melon, melon, orange_ray, plum, star, blue_ray, strawberry, star, orange_ray, orange, pear, grapes, melon, star, orange_ray, grapes, cherry, star, pear, grapes, orange_ray, star, blue_ray]
+   #[Plum(), Melon(), Melon(), Orange_ray(), Plum(), Star(), Blue_ray(), Strawberry(), Star(), Orange_ray(), Orange(), Pear(), Grape(), Melon(), Star(), Orange_ray(), Grape(), Cherry, Star(), Pear(), Grape(), Orange_ray(), Star(), Blue_ray()]
   def __init__(self):
-    pass
+    self.symbols = [
+      Plum(), Melon(), Melon(), Orange_ray(), Plum(), Star(), Blue_ray(), Strawberry(), Star(), Orange_ray(), Orange(), Pear(), Grape(), Melon(), Star(), Orange_ray(), Grape(), Cherry(), Star(), Pear(), Grape(), Orange_ray(), Star(), Blue_ray()
+    ]
 
 class MultiplierReel:
    #Should contain following symbols:
-   #[tails, heads, heads, neither, heads, tails, tails, heads, tails, tails, heads, heads, heads, tails, tails, heads, tails, heads, half, heads, tails, heads, tails, tails]
+   #self.symbols = [
+   # Tails(), Heads(), Heads(), Neither(), Heads(), Tails(), Tails(), Heads(), Tails(), Tails(), Heads(), Heads(), Heads(), Tails(), Tails(), Heads(), Tails(), Heads(), Half(), Heads(), Tails(), Heads(), Tails(), Tails()
+   # ]
   def __init__(self):
-    pass
+    self.symbols = [
+      Tails(), Heads(), Heads(), Neither(), Heads(), Tails(), Tails(), Heads(), Tails(), Tails(), Heads(), Heads(), Heads(), Tails(), Tails(), Heads(), Tails(), Heads(), Half(), Heads(), Tails(), Heads(), Tails(), Tails()
+    ]
