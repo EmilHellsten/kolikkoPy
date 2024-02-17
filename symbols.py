@@ -44,3 +44,21 @@ class Strawberry(Symbol):
     def __init__(self):
       pass
 
+#----------------------
+
+class Heads(Symbol):
+    def __init__(self):
+      pass
+
+class Tails(Symbol):
+    def __init__(self):
+      pass
+
+class Half(Symbol):
+    def __init__(self):
+      pass
+
+class Neither(Symbol):
+    def __init__(self):
+      pass
+

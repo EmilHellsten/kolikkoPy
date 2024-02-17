@@ -1,21 +1,24 @@
-#Should contain sequences of valid symbol combinations
-#[
-# [orange_ray, orange_ray, orange_ray],
-# [blue_ray, blue_ray, blue_ray],
-# [blue_ray, blue_ray, star],
-# [melon, melon, melon],
-# [melon, melon, star],
-# [plum, plum, plum],
-# [plum, plum, star],
-# [grape, grape, grape],
-# [grape, grape, star],
-# [pear, pear, pear],
-# [pear, pear, star],
-# [orange, orange, orange],
-# [orange, orange, star],
-# [charry, cherry, cherry],
-# [cherry, cherry, strawberry],
-# [cherry, cherry, _],
-# [_, _, strawberry],
-# [cherry, _, _]
-#]
+from symbols import (Symbol, Blue_ray, Orange_ray, Star, Melon, Plum, Grape, Pear, Orange, Cherry, Strawberry)
+
+validCombos = [
+  [Orange_ray(), Orange_ray(), Orange_ray()],
+  [Blue_ray(), Blue_ray(), Blue_ray()],
+  [Blue_ray(), Blue_ray(), Star()],
+  [Melon(), Melon(), Melon()],
+  [Melon(), Melon(), Star()],
+  [Plum(), Plum(), Plum()],
+  [Plum(), Plum(), Star()],
+  [Grape(), Grape(), Grape()],
+  [Grape(), Grape(), Star()],
+  [Pear(), Pear(), Pear()],
+  [Pear(), Pear(), Star()],
+  [Orange(), Orange(), Orange()],
+  [Orange(), Orange(), Star()],
+  [Cherry(), Cherry(), Cherry()],
+  [Cherry(), Cherry(), Strawberry()],
+  [Cherry(), Cherry(), Symbol()],  #
+  [Symbol(), Symbol(), Strawberry()],  # 
+  [Cherry(), Symbol(), Symbol()],  # 
+]
+
+# You can add more combinations or modify existing ones as needed
