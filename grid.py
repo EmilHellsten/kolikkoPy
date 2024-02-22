@@ -1,85 +1,58 @@
-#from operator import le
-import random
 from reels import LeftReel, MidReel, RightReel, MultiplierReel
+from combos import validCombos
 
 class SlotGrid:
   def __init__(self):
-    self.grid = [
-      [None, None, None, None],
-      [None, None, None, None],
-      [None, None, None, None]
-    ]
-
-    self.lineCoords = [
-      [(0, 0), (1, 1), (2, 2)],
-      [(0, 0), (0, 1), (0, 2)],
-      [(1, 0), (1, 1), (1, 2)],
-      [(2, 0), (2, 1), (2, 2)],
-      [(2, 0), (1, 1), (0, 2)]
-    ]
-
-    self.multiplierCoords = [
-      [(0, 3), (1, 3), (2, 3)]
-    ]#Tässä kiinnostaa ainoastaan keskimmäinen arvo?
-
-    #reels
+    #Whenever a new SlotGrid object is instantiated, spawn it in with three reels and one multiplier reel
     self.leftReel = LeftReel()
     self.midReel = MidReel()
     self.rightReel = RightReel()
-    self.multiplierReel = MultiplierReel()
+    self.multReel = MultiplierReel()
 
-    #randomly assign starting positions for each 'head'
-    self.leftHead = random.randint(0, self.leftReel.length)    
-    self.midHead = random.randint(0, self.midReel.length)    
-    self.rightHead = random.randint(0, self.rightReel.length)    
-    self.multHead = random.randint(0, self.multiplierReel.length)    #
-    
-    #body
-    self.leftBody = (self.leftHead + 1) if ( (self.leftHead + 1) < self.leftReel.length) else (self.leftHead + 1 - self.leftReel.length)
-    self.midBody = (self.midHead + 1) if ( (self.midHead + 1) < self.midReel.length) else (self.midHead + 1 - self.midReel.length)
-    self.rightBody = (self.rightHead + 1) if ( (self.rightHead + 1) < (self.rightReel.length) ) else (self.rightHead + 1 - self.rightReel.length)
-    self.multBody = (self.multHead + 1) if ( (self.multHead + 1) < (self.multiplierReel.length) ) else (self.multHead + 1 - self.multiplierReel.length)
+    #Build grid out of reels
+    self.grid = [
+      [self.leftReel.symbolOne,   self.midReel.symbolOne,   self.rightReel.symbolOne,   self.multReel.symbolOne],
+      [self.leftReel.symbolTwo,   self.midReel.symbolTwo,   self.rightReel.symbolTwo,   self.multReel.symbolTwo],
+      [self.leftReel.symbolThree, self.midReel.symbolThree, self.rightReel.symbolThree, self.multReel.symbolThree]
+    ]
   
-    #tail
-    self.leftTail = (self.leftHead + 2) if ( (self.leftHead + 2) < self.leftReel.length) else (self.leftHead + 2 - self.leftReel.length)
-    self.midTail = (self.midHead + 2) if ( (self.midHead + 2) < self.midReel.length) else (self.midHead + 2 - self.midReel.length)
-    self.rightTail = (self.rightHead + 2) if ( (self.rightHead + 2) < (self.rightReel.length) ) else (self.rightHead + 2 - self.rightReel.length)
-    self.multTail = (self.multHead + 2) if ( (self.multHead + 2) < (self.multiplierReel.length) ) else (self.multHead + 2 - self.multiplierReel.length)
-  
-    #update the grid with the starting positions
-    self.updateGrid()
+    #Lines
+    self.lineOne   = [self.grid[0][0], self.grid[1][1], self.grid[2][2]]#Diagonally downward
+    self.lineTwo   = [self.grid[0][0], self.grid[0][1], self.grid[0][2]]#Straight across top
+    self.lineThree = [self.grid[1][0], self.grid[1][1], self.grid[1][2]]#Straight across mid
+    self.lineFour  = [self.grid[2][0], self.grid[2][1], self.grid[2][2]]#Straight across bot
+    self.lineFive  = [self.grid[2][0], self.grid[1][1], self.grid[0][2]]#Diagonally upwards
 
-  def updateGrid(self):
-    # Clear the current grid
-    self.grid = [[None, None, None, None] for _ in range(3)]
+    #Multiplier Value
+    #TODO: Implement multiplier reel after a winning spin
+    self.multiplier = self.multReel.symbolTwo
 
-    # Update the grid with symbols from the regular reels
-    self.grid[0][0] = self.leftReel.symbols[self.leftHead]
-    self.grid[1][0] = self.leftReel.symbols[self.leftBody]
-    self.grid[2][0] = self.leftReel.symbols[self.leftTail]
 
-    self.grid[0][1] = self.midReel.symbols[self.midHead]
-    self.grid[1][1] = self.midReel.symbols[self.midBody]
-    self.grid[2][1] = self.midReel.symbols[self.midTail]
+  def checkLines(self, playerMoney):#TODO refactor into helper methods
+    winningLines = []
+    #Iterate over each of the lines
+    for line in [self.lineOne, self.lineTwo, self.lineThree, self.lineFour, self.lineFive]:
+        for combo, value in validCombos:#For each line, check ALL combos
+            matchCount = 0
+            #How many symbols in given line match up with symbols in combination
+            for symbol, comboSymbol in zip(line, combo):
+                if comboSymbol == 'Symbol' or symbol == comboSymbol:
+                    matchCount += 1# ^ Special case for 'Symbol'
 
-    self.grid[0][2] = self.rightReel.symbols[self.rightHead]
-    self.grid[1][2] = self.rightReel.symbols[self.rightBody]
-    self.grid[2][2] = self.rightReel.symbols[self.rightTail]
+                if matchCount == 3:#If three matches are found it means that it was a winning line
+                    winningLines.append([line, value])
+                    break #
 
-    # Display the updated grid
-    self.displayGrid()
-    self.updateMultiplierReel()
+            if matchCount == 3:
+                break  #If combo found, move on to next iteration
 
-  def updateMultiplierReel(self):
-    #update the multiplier reel in the fourth column
-    self.grid[0][3] = self.multiplierReel.symbols[self.multHead]
-    self.grid[1][3] = self.multiplierReel.symbols[self.multBody]
-    self.grid[2][3] = self.multiplierReel.symbols[self.multTail]
+    if winningLines:#Check that winning lines contains something, if yes -> happy, if no -> unhappy path
+        print(f"Winning lines: {winningLines}")
+    else:
+        print("No winning lines detected.")
 
-  def displayGrid(self):
+    return sum(value for _, value in winningLines)#TODO: Shouldnt be the sum of winning lines, should be max(_, value)*size(winningLines)
+
+  def printGrid(self):
     for row in self.grid:
-      symbols = []
-      for symbol in row:
-        symbols.append(symbol.__class__.__name__)
-      
-      print(symbols)
+      print(row)

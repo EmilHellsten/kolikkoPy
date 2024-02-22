@@ -1,24 +1,23 @@
 from grid import SlotGrid
-import time
+#Control variables
+MAX_SPINS = 10000
+STARTING_CAPITAL = 10.0
+COST_PER_SPIN = 1.0
 
-def playGame(rolls):
-    #instantiate grid
-    slotGrid = SlotGrid()
-    i = 0
+playerMoney = STARTING_CAPITAL
 
-    #TESTING
-    while i < rolls:
-      slotGrid.displayGrid()
-      #CLEAR TERMINAL AFTERWARDS
-      print("")
-      print("")
-      print("")
-      print("")
-      print("")
-      print("")
-      print("")
+def clearTerminal():
+  for i in range(0, 5):
+    print("")
 
-      time.sleep(2)
-      i +=1
-    
-playGame(15)
+for num in range(0, MAX_SPINS):
+  grid = SlotGrid()
+  #On each spin, pay to spin slot machine
+  playerMoney -= COST_PER_SPIN
+  print(f"Player has {playerMoney} money left")
+  #Check for win and add that to players money
+  totalWinnings = grid.checkLines(playerMoney)
+  playerMoney += totalWinnings
+  grid.printGrid()
+  print(f"Player's money after spin {num + 1}: {playerMoney}")
+  clearTerminal()
